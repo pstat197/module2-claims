@@ -7,21 +7,22 @@ source('scripts/preprocessing.R')
 # load raw data
 load('data/claims-raw.RData')
 
-# preprocess
+# preprocess (will take a minute or two)
 claims_clean <- claims_raw %>%
   parse_data()
 
 # export
-save(claims_clean, file = 'data/claims-clean.RData')
+save(claims_clean, file = 'data/claims-clean-example.RData')
 
 ## MODEL TRAINING (NN)
 ######################
 library(tidyverse)
+library(tidymodels)
 library(keras)
 library(tensorflow)
 
 # load cleaned data
-load('data/claims-clean.RData')
+load('data/claims-clean-example.RData')
 
 # partition
 set.seed(110122)
@@ -73,4 +74,4 @@ history <- model %>%
 ## CHECK TEST SET ACCURACY HERE
 
 # save the entire model as a SavedModel
-save_model_tf(model, "results/model")
+save_model_tf(model, "results/example-model")
